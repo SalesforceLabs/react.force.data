@@ -13,11 +13,14 @@ query.addListener(notify);
 let cache = {};
 
 const get = (id)=>{
-  return cache[id];
+  if(id && id.length>=15){
+    const shortId = id.substring(0,15);
+    return cache[shortId];
+  }
 };
 
 const set = (sobj)=>{
-  cache[sobj.Id] = sobj;
+  cache[sobj.attributes.shortId] = sobj;
 };
 
 module.exports = {

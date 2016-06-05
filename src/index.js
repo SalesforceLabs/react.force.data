@@ -24,6 +24,10 @@ module.exports = {
 //  SobjContainer:SobjContainer,
   QueryCounter:QueryCounter,
   utils:utils,
-  requestWithTypeAndId:queue.add
+  requestWithTypeAndId:(type,id,nocache)=>{
+    if(!!!nocache && !cache.get(id)){
+      queue.add(type,id);
+    }
+  }
 //  forceClient:forceClient
 };
