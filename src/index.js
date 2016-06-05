@@ -10,6 +10,7 @@ import cache from './cache';
 import utils from './utils';
 import refs from './refs';
 import queue from './queue';
+import storage from './storage';
 
 import requestWithTypeAndId from './requestWithTypeAndId';
 
