@@ -23,7 +23,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 import cacheCompact from './cacheCompact';
 
 let cache = {};
@@ -35,8 +35,6 @@ module.exports = (opts) => {
 
       if(compactLayout && compactLayout.objectType){
         const type = compactLayout.objectType;
-        console.log('compactLayout: ',compactLayout);
-
         cacheCompact.set(type,compactLayout);
         resolve(opts);
 
