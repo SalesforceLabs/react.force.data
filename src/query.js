@@ -52,6 +52,7 @@ module.exports = (opts) => {
           if(response.records && response.records.length){
             const records = response.records.map((r)=>{
                 r.attributes.compactTitle = utils.getCompactTitle(r, opts.compactTitleFieldNames);
+                r.attributes.shortId = utils.getShortId(r);
               return r;
             });
             broadcast(records, opts.compactLayout, opts.defaultLayout);
