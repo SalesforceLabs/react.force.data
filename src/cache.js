@@ -20,7 +20,9 @@ const get = (id)=>{
 };
 
 const set = (sobj)=>{
-  cache[sobj.attributes.shortId] = sobj;
+  if(sobj && sobj.attributes && sobj.attributes.shortId){
+    cache[sobj.attributes.shortId] = sobj;
+  }
 };
 
 module.exports = {

@@ -11,6 +11,7 @@ import utils from './utils';
 import refs from './refs';
 import queue from './queue';
 import storage from './storage';
+import storageCompact from './storageCompact';
 
 import requestWithTypeAndId from './requestWithTypeAndId';
 

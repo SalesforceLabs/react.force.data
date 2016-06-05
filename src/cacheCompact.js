@@ -1,14 +1,11 @@
-import query from './query';
+import getCompactLayout from './getCompactLayout';
 
-const notify = (ids,sobjs,compactLayout,defaultLayout) => {
-  if(sobjs && sobjs.length && compactLayout){
-    const sobj = sobjs[0];
-    const type = sobj.attributes.type;
+const notify = (type, compactLayout) => {
+  if(type, compactLayout){
     set(type,compactLayout);
   }
 };
 
-query.addListener(notify);
 
 let cache = {};
 
@@ -19,6 +16,8 @@ const get = (type)=>{
 const set = (type, compactLayout)=>{
   cache[type] = compactLayout;
 };
+
+getCompactLayout.addListener(notify);
 
 module.exports = {
   get:get,
