@@ -13,7 +13,7 @@ const listeners = [];
 
 const buildQuery = (type, ids, fields) => {
   const where = ids.map((id)=>{
-    return 'Id = \''+id+'\'';
+    return 'Id=\''+id+'\'';
   }).join(' OR ');
   return 'SELECT ' +
   fields.join(',') +
