@@ -17,7 +17,7 @@ import addToQueue from './addToQueue';
 
 import queue from './queue';
 
-module.exports = (type,ids) => {
-  return getMetaByType({type:type, ids:ids})
+module.exports = (type,ids,doRefs) => {
+  return getMetaByType({type:type, ids:ids, doRefs:doRefs})
     .then(query);
 };

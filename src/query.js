@@ -2,6 +2,7 @@ import {forceClient} from 'react.force';
 import union from 'lodash.union';
 import remove from 'lodash.remove';
 import trim from 'lodash.trim';
+import pull from 'lodash.pull';
 
 import utils from './utils';
 
@@ -21,12 +22,12 @@ const buildQuery = (type, ids, fields) => {
   ' LIMIT '+ 200;
 };
 
-const broadcast = (records,compactLayout,defaultLayout)=>{
+const broadcast = (records,compactLayout,defaultLayout,doRefs)=>{
   const ids = records.map((record)=>{
     return record.Id;
   });
   listeners.forEach((listener)=>{
-    listener(ids,records,compactLayout,defaultLayout);
+    listener(ids,records,compactLayout,defaultLayout,doRefs);
   });
 };
 
@@ -55,7 +56,7 @@ module.exports = (opts) => {
                 r.attributes.shortId = utils.getShortId(r);
               return r;
             });
-            broadcast(records, opts.compactLayout, opts.defaultLayout);
+            broadcast(records, opts.compactLayout, opts.defaultLayout, opts.doRefs);
           }
 
           resolve(opts);

@@ -7,7 +7,7 @@ module.exports = (opts) => {
         queue.add(opts.type,opts.id);
       }
       else{
-        console.log('skipping: already cached');
+//        console.log('skipping: already cached');
       }
       resolve(opts);
     }

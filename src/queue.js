@@ -13,7 +13,7 @@ const get = (type) => {
   return result;
 };
 
-const add = (type, id) => {
+const add = (type, id, doRefs) => {
   if(!type || !id){
     return;
   }
@@ -28,7 +28,7 @@ const add = (type, id) => {
     setTimeout(()=>{
       if(Queue[type] && Queue[type].length){
         const ids = get(type);
-        batchRunByType(type,ids);
+        batchRunByType(type,ids,doRefs);
       }
       timeouts[type] = false;
     },300);

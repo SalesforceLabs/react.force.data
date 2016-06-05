@@ -12,6 +12,8 @@ import utils from './utils';
 import refs from './refs';
 import queue from './queue';
 
+import requestWithTypeAndId from './requestWithTypeAndId';
+
 //import forceClient from './react.force.net';
 
 module.exports = {
@@ -24,10 +26,6 @@ module.exports = {
 //  SobjContainer:SobjContainer,
   QueryCounter:QueryCounter,
   utils:utils,
-  requestWithTypeAndId:(type,id,nocache)=>{
-    if(!!!nocache && !cache.get(id)){
-      queue.add(type,id);
-    }
-  }
+  requestWithTypeAndId:requestWithTypeAndId
 //  forceClient:forceClient
 };
