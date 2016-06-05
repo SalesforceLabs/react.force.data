@@ -12,6 +12,7 @@ import refs from './refs';
 import queue from './queue';
 import storage from './storage';
 import storageCompact from './storageCompact';
+import storageDefaultLayout from './storageDefaultLayout';
 
 import requestWithTypeAndId from './requestWithTypeAndId';
 

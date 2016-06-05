@@ -4,6 +4,14 @@ import pull from 'lodash.pull';
 
 const requested = [];
 
+const listeners = [];
+
+const broadcast = (type,defaultLayout)=>{
+  listeners.forEach((listener)=>{
+    listener(type,defaultLayout);
+  });
+};
+
 module.exports = (opts) => {
   return new Promise(
     (resolve, reject) => {
@@ -13,7 +21,7 @@ module.exports = (opts) => {
         return;
       }
       if(requested.indexOf(opts.type)>-1){
-        reject(opts);
+        resolve(opts);
         return;
       }
       requested.push(opts.type);
@@ -21,9 +29,14 @@ module.exports = (opts) => {
         (response) => {
           opts.defaultLayout = response;
           pull(requested,opts.type);
+          broadcast(opts.type,opts.defaultLayout);
           resolve(opts);
         }
       );
     }
   );
+};
+
+module.exports.addListener = (listener) => {
+  listeners.push(listener);
 };
