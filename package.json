@@ -24,6 +24,7 @@
     "lodash.findindex": "^4.4.0",
     "lodash.keys": "^4.0.7",
     "lodash.merge": "^4.4.0",
+    "lodash.pull": "^4.0.1",
     "lodash.remove": "^4.5.0",
     "lodash.trim": "^4.4.0",
     "lodash.union": "^4.4.0",

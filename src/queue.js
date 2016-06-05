@@ -5,6 +5,8 @@ import query from './query';
 
 import batchRunByType from './batchRunByType';
 
+const timeouts = {};
+
 const get = (type) => {
   const result = Queue[type];
   Queue[type] = [];
@@ -22,13 +24,16 @@ const add = (type, id) => {
   if(Queue[type].indexOf(id)<0){
     Queue[type].push(id);
   }
-  setTimeout(()=>{
-    console.log('TRIGGER QUERY !!!');
-    if(Queue[type] && Queue[type].length){
-      const ids = get(type);
-      batchRunByType(type,ids);
-    }
-  },300);
+  if(!timeouts[type]){
+    timeouts[type] = true;
+    setTimeout(()=>{
+      if(Queue[type] && Queue[type].length){
+        const ids = get(type);
+        batchRunByType(type,ids);
+      }
+      timeouts[type] = false;
+    },300);
+  }
 };
 
 module.exports = {
