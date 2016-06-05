@@ -14,7 +14,6 @@ const get = (type) => {
 };
 
 const add = (type, id) => {
-  console.log('!!! ADD !!!: ',type,id);
   if(!type || !id){
     return;
   }
