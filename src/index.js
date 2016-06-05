@@ -1,4 +1,3 @@
-import getUsers from './getUsers';
 import getDefaultLayout from './getDefaultLayout';
 import getCompactLayout from './getCompactLayout';
 import getCompactLayoutFieldNames from './getCompactLayoutFieldNames';
@@ -18,7 +17,6 @@ import requestWithTypeAndId from './requestWithTypeAndId';
 
 module.exports = {
   getByTypeAndId:getByTypeAndId,
-  getUsers:getUsers,
   getDefaultLayout:getDefaultLayout,
   getCompactLayout:getCompactLayout,
   getCompactLayoutFieldNames:getCompactLayoutFieldNames,
