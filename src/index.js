@@ -10,6 +10,8 @@ import QueryCounter from './QueryCounter';
 import cache from './cache';
 import utils from './utils';
 import refs from './refs';
+import queue from './queue';
+
 //import forceClient from './react.force.net';
 
 module.exports = {
@@ -22,5 +24,6 @@ module.exports = {
 //  SobjContainer:SobjContainer,
   QueryCounter:QueryCounter,
   utils:utils,
+  requestWithTypeAndId:queue.add
 //  forceClient:forceClient
 };
