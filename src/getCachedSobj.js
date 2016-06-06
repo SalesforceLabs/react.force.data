@@ -31,6 +31,12 @@ import storage from './storage';
 module.exports = (opts) => {
   return new Promise(
     (resolve, reject) => {
+
+      if(opts.noCache){
+        resolve(opts);
+        return;
+      }
+
       const id = opts.id;
       const item = cache.get(id);
       if(item){
