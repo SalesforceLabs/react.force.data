@@ -23,7 +23,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 import union from 'lodash.union';
 import remove from 'lodash.remove';
 import trim from 'lodash.trim';
@@ -54,7 +54,3 @@ const notify = (ids,sobjs,compactLayout,defaultLayout,doRefs) => {
 };
 
 query.addListener(notify);
-
-module.exports = {
-
-};
