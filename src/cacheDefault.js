@@ -24,17 +24,16 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import query from './query';
+import getDefaultLayout from './getDefaultLayout';
 
-const notify = (ids,sobjs,compactLayout,defaultLayout) => {
-  if(sobjs && sobjs.length && compactLayout){
-    const sobj = sobjs[0];
-    const type = sobj.attributes.type;
+
+const notify = (type, defaultLayout) => {
+  if(type, defaultLayout){
     set(type,defaultLayout);
   }
 };
 
-query.addListener(notify);
+getDefaultLayout.addListener(notify);
 
 let cache = {};
 
