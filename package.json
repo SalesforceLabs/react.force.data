@@ -16,10 +16,6 @@
     "url": "https://github.com/ForceDotComLabs/react.force.data/issues"
   },
   "homepage": "https://github.com/ForceDotComLabs/react.force.data#readme",
-  "peerDependencies": {
-    "react-native": ">=0.20.0",
-    "react.force": "git+ssh://git@github.com/ForceDotComLabs/react.force.git"
-  },
   "dependencies": {
     "lodash.findindex": "^4.4.0",
     "lodash.keys": "^4.0.7",
