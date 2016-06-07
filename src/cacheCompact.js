@@ -43,9 +43,14 @@ const set = (type, compactLayout)=>{
   cache[type] = compactLayout;
 };
 
+const clear = ()=>{
+  cache = {};
+};
+
 getCompactLayout.addListener(notify);
 
 module.exports = {
   get:get,
-  set:set
+  set:set,
+  clear:clear
 };

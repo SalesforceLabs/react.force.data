@@ -46,7 +46,12 @@ const set = (type, defaultLayout)=>{
   cache[type] = defaultLayout;
 };
 
+const clear = ()=>{
+  cache = {};
+};
+
 module.exports = {
   get:get,
-  set:set
+  set:set,
+  clear:clear
 };

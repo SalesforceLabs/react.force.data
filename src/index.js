@@ -30,7 +30,6 @@ import getCompactLayoutFieldNames from './getCompactLayoutFieldNames';
 import query from './query';
 import getByTypeAndId from './getByTypeAndId';
 
-import cache from './cache';
 import utils from './utils';
 import refs from './refs';
 import queue from './queue';
@@ -40,6 +39,7 @@ import storageDefaultLayout from './storageDefaultLayout';
 
 import requestWithTypeAndId from './requestWithTypeAndId';
 
+import clearCache from './clearCache';
 
 module.exports = {
   getByTypeAndId:getByTypeAndId,
@@ -48,5 +48,6 @@ module.exports = {
   getCompactLayoutFieldNames:getCompactLayoutFieldNames,
   query:query,
   utils:utils,
-  requestWithTypeAndId:requestWithTypeAndId
+  requestWithTypeAndId:requestWithTypeAndId,
+  clearCache:clearCache
 };

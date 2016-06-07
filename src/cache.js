@@ -50,7 +50,12 @@ const set = (sobj)=>{
   }
 };
 
+const clear = ()=>{
+  cache = {};
+};
+
 module.exports = {
   get:get,
-  set:set
+  set:set,
+  clear:clear
 };
