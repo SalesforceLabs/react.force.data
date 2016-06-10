@@ -23,7 +23,6 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
- 
 import getDefaultLayout from './getDefaultLayout';
 import getCompactLayout from './getCompactLayout';
 import getCompactLayoutFieldNames from './getCompactLayoutFieldNames';
@@ -41,6 +40,9 @@ import requestWithTypeAndId from './requestWithTypeAndId';
 
 import clearCache from './clearCache';
 
+import chatterQuery from './chatterQuery';
+import getByChatterUserId from './getByChatterUserId';
+
 module.exports = {
   getByTypeAndId:getByTypeAndId,
   getDefaultLayout:getDefaultLayout,
@@ -49,5 +51,7 @@ module.exports = {
   query:query,
   utils:utils,
   requestWithTypeAndId:requestWithTypeAndId,
-  clearCache:clearCache
+  clearCache:clearCache,
+  chatterQuery: chatterQuery,
+  getByChatterUserId: getByChatterUserId
 };
