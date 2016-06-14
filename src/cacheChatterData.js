@@ -1,5 +1,5 @@
 // import chatterQuery
-import query from './query';
+import query from './chatterQuery';
 
 //let CACHE = {};
 
