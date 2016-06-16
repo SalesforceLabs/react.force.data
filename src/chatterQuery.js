@@ -3,8 +3,6 @@ import union from 'lodash.union';
 import remove from 'lodash.remove';
 import trim from 'lodash.trim';
 
-import utils from './utils';
-
 let queryCount = 0;
 
 const listeners = [];

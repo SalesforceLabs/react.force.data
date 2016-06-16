@@ -2,8 +2,6 @@ let chatterQueue = [];
 import keys from 'lodash.keys';
 import chatterQuery from './chatterQuery';
 
-import batchRunByType from './batchRunByType';
-
 const get = () => {
   return chatterQueue.splice(0, chatterQueue.length);
 }
