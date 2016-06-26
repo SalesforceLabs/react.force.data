@@ -15,7 +15,7 @@ const add = (id) => {
   setTimeout(()=>{
     if(chatterQueue && chatterQueue.length !== 0){
       console.log('TRIGGER QUERY !!!');
-      const ids = get()
+      const ids = get();
       return chatterQuery({ids:ids});
     }
   },300);
