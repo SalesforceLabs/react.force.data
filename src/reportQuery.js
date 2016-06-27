@@ -7,8 +7,17 @@ let queryCount = 0;
 
 const listeners = [];
 
+/*const broadcast = (records) => {
+  const ids = records.map((record)=>{
+    return record.id;
+  });
+  listeners.forEach((listener)=>{
+    listener(ids, records);
+  });
+}*/
+
 const broadcast = (reportResponse) => {
-  const reportId = response.attributes.reportId;
+  const reportId = reportResponse.attributes.reportId;
   listeners.forEach((listener)=>{
     listener(reportId, reportResponse);
   });
@@ -25,13 +34,36 @@ module.exports = (opts) => {
       }
 
       queryCount++;
+
       forceClient.reportData(opts.id,
         (response)=>{
-          broadcast(response);
-          resolve(opts);
+          //if(response){
+            broadcast(response);
+            resolve(opts);
+            /*let groupings = response.groupingsDown.groupings,
+                factMap = response.factMap,
+                dataSource,
+                sumOfEntities;
+
+            //console.log("****REPORTRESPONSE: " + JSON.stringify(response));
+            dataSource = groupings.map(function(grouping, index){
+              let mappedObject = Object.assign(grouping, factMap[grouping.key + '!T']);
+              mappedObject.position = grouping.key;
+              return mappedObject;
+            }).find(function(dataBlob){
+              return dataBlob.value === this.props.entityId;
+            }.bind(this));*/
+
+            /*this.setState({
+              reportApiResponse: response,
+              detailColumnMap : response.reportMetadata.detailColumns,
+              dataSource: this.getDataSource(dataSource.rows)
+            });*/
+          //}
         },
-        (error) => {
-        reject('Error: query');
+        (error)=> {
+          reject('Error: query');
+          ///console.warn(error);
         }
       );
     }

@@ -43,6 +43,11 @@ import clearCache from './clearCache';
 import chatterQuery from './chatterQuery';
 import getByChatterUserId from './getByChatterUserId';
 
+import reportQuery from './reportQuery';
+import getByReportId from './getByReportId';
+
+
+
 module.exports = {
   getByTypeAndId:getByTypeAndId,
   getDefaultLayout:getDefaultLayout,
@@ -53,5 +58,7 @@ module.exports = {
   requestWithTypeAndId:requestWithTypeAndId,
   clearCache:clearCache,
   chatterQuery: chatterQuery,
-  getByChatterUserId: getByChatterUserId
+  reportQuery: reportQuery, 
+  getByChatterUserId: getByChatterUserId,
+  getByReportId: getByReportId
 };
