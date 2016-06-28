@@ -1,16 +1,11 @@
 // import reportQuery
 import query from './reportQuery';
 
-//let CACHE = {};
-
 const notify = (id,sobjs) => {
+  //store report in cache
   for (var sobj in sobjs) {
   	set(sobj);
   }
-  //set(sobj);
-  /*sobjs.forEach((sobj)=>{
-    set(sobj);
-  });*/
 };
 
 query.addListener(notify);
