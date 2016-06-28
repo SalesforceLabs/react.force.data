@@ -1,4 +1,4 @@
-import {forceClient} from 'react.force';
+import {btClient} from 'react.force';
 import union from 'lodash.union';
 import remove from 'lodash.remove';
 import trim from 'lodash.trim';
@@ -19,29 +19,27 @@ const broadcast = (records) => {
 module.exports = (opts) => {
   return new Promise(
     (resolve, reject) => {
-      if(!opts.noCache && opts.cachedChatterData ){
-        opts.chatterData = opts.cachedChatterData;
+      if(!opts.noCache && opts.cachedBtLogoData ){
+        opts.btLogoData = opts.cachedBtLogoData;
         resolve(opts);
         return;
       }
 
       queryCount++;
-      forceClient.bulkChatterUserPics(opts.ids,
-        (response)=>{
-          if(!response.hasErrors && response.results.length){
-            const records = response.results.map((r, index) => {
-              let result = r.result;
-              result.id = opts.ids[index];
-              return result;
-            });
-            broadcast(records);
-          }
-          resolve(opts);
-        },
-        (error) => {
-        reject('Error: chatter query');
+      btClient.btLogoBatchRequest(opts.ids, (response)=>{
+        if(!response.hasErrors && response.companyLogoResponseItems.length){
+          const records = response.companyLogoResponseItems.map((r, index) => {
+            let result = r;
+            result.id = opts.ids[index];
+            return result;
+          });
+          broadcast(records);
         }
-      );
+        resolve(opts);
+      },
+      (error)=>{
+        reject('Error: bluetail query');
+      })
     }
   );
 };

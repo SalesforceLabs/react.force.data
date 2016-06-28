@@ -43,6 +43,9 @@ import clearCache from './clearCache';
 import chatterQuery from './chatterQuery';
 import getByChatterUserId from './getByChatterUserId';
 
+import getBtLogoByCompanyName from './getBtLogoByCompanyName';
+import btLogoQuery from './btLogoQuery';
+
 module.exports = {
   getByTypeAndId:getByTypeAndId,
   getDefaultLayout:getDefaultLayout,
@@ -53,5 +56,7 @@ module.exports = {
   requestWithTypeAndId:requestWithTypeAndId,
   clearCache:clearCache,
   chatterQuery: chatterQuery,
-  getByChatterUserId: getByChatterUserId
+  getByChatterUserId: getByChatterUserId,
+  getBtLogoByCompanyName: getBtLogoByCompanyName,
+  btLogoQuery: btLogoQuery
 };

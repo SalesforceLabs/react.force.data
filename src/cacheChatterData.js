@@ -1,7 +1,4 @@
-// import chatterQuery
 import query from './chatterQuery';
-
-//let CACHE = {};
 
 const notify = (ids,sobjs) => {
   sobjs.forEach((sobj)=>{
