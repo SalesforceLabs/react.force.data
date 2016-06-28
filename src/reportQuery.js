@@ -18,14 +18,14 @@ const broadcast = (reportResponse) => {
 module.exports = (opts) => {
   return new Promise(
     (resolve, reject) => {
-      if(!opts.noCache && opts.cachedReportData ){
+      if(!opts.noCache && opts.cachedReportData){
         opts.reportData = opts.cachedReportData;
         resolve(opts);
         return;
       }
 
       queryCount++;
-      forceClient.reportData(opts.id,
+      forceClient.reportData(opts.ids[0],
         (response)=>{
           broadcast(response);
           resolve(opts);

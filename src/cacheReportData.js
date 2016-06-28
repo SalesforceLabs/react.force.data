@@ -1,11 +1,8 @@
 // import reportQuery
 import query from './reportQuery';
 
-const notify = (id,sobjs) => {
-  //store report in cache
-  for (var sobj in sobjs) {
-  	set(sobj);
-  }
+const notify = (id,sobj) => {
+  set(sobj);
 };
 
 query.addListener(notify);
@@ -17,7 +14,8 @@ const get = (id)=>{
 };
 
 const set = (sobj)=>{
-  cache[sobj.Id] = sobj;
+  let reportId = sobj.attributes.reportId;
+  cache[reportId] = sobj;
 };
 
 module.exports = {
