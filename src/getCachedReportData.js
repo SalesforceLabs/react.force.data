@@ -5,7 +5,7 @@ module.exports = (opts) => {
     (resolve, reject) => {
       const id = opts.id;
       const item = cacheReportData.get(id);
-      opts.cacheReportData = item;
+      opts.cachedReportData = item;
       resolve(opts);
     })
 }
