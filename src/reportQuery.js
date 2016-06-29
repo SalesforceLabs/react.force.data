@@ -8,7 +8,8 @@ let queryCount = 0;
 const listeners = [];
 
 const broadcast = (reportResponse) => {
-  const reportId = response.attributes.reportId;
+  //only one report to send back
+  const reportId = reportResponse.attributes.reportId;
   listeners.forEach((listener)=>{
     listener(reportId, reportResponse);
   });
@@ -17,21 +18,20 @@ const broadcast = (reportResponse) => {
 module.exports = (opts) => {
   return new Promise(
     (resolve, reject) => {
-      if(!opts.noCache && opts.cachedReportData ){
-        console.log('skipping report request for cached data');
+      if(!opts.noCache && opts.cachedReportData){
         opts.reportData = opts.cachedReportData;
         resolve(opts);
         return;
       }
 
       queryCount++;
-      forceClient.reportData(opts.id,
+      forceClient.reportData(opts.ids[0],
         (response)=>{
           broadcast(response);
           resolve(opts);
         },
-        (error) => {
-        reject('Error: query');
+        (error)=> {
+          console.warn(error);
         }
       );
     }
