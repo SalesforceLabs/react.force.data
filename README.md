@@ -4,7 +4,6 @@
 
 1. work in progress
 2. we need your feedback
-3. not production-ready
 
 ## Setup
 
@@ -12,6 +11,6 @@
 
   ```
 
-  npm install git+ssh://git@github.com:ForceDotComLabs/react.force.data.git --save
+  npm install react.force.data --save
 
   ```

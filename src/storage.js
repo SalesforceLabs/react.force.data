@@ -24,12 +24,17 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
  
-import { AsyncStorage } from 'react-native';
+import {smartstore} from 'react.force';
 
 import query from './query';
 
 import cache from './cache';
 
+const PREFIX = 'sobj_';
+
+const SOUP_NAME = PREFIX+'Soup';
+
+const externalID = '__shortId';
 
 const notify = (ids,sobjs) => {
   sobjs.forEach((sobj)=>{
@@ -38,52 +43,70 @@ const notify = (ids,sobjs) => {
 };
 
 const populateCache = ()=>{
-  AsyncStorage.getAllKeys((err, keys) => {
-    AsyncStorage.multiGet(keys, (err, stores) => {
-      stores.forEach((result, i, store) => {
-        const sobj = JSON.parse(store[i][1]);
-        cache.set(sobj);
-      });
-    });
+  const querySpec = smartstore.buildAllQuerySpec('__shortId', "ascending", 100);
 
-  });
-};
-
-const set = (sobj)=>{
-  if(sobj && sobj.attributes && sobj.attributes.shortId){
-    setItem(sobj.attributes.shortId,sobj);
-  }
-};
-
-const getShotId = (id)=>{
-  if(id && id.length>=15){
-    return id.substring(0,15);
-  }
-};
-
-const setItem = (id,sobj,callback)=>{
-  const shortId = getShotId(id);
-  return AsyncStorage.setItem(shortId,JSON.stringify(sobj),callback);
-};
-
-const getItem = (id,callback)=>{
-  const shortId = getShotId(id);
-  return AsyncStorage.getItem(shortId,(err, result)=>{
-    if(callback){
-      if(err || !result){
-        return callback();
+  smartstore.querySoup(
+    false,
+    SOUP_NAME,
+    querySpec,
+    (cursor)=>{
+      const items = cursor.currentPageOrderedEntries;
+      if(items && items.length){
+        items.forEach((sobj)=>{
+          if(sobj.attributes && sobj.attributes.shortId){
+            cache.set(sobj);
+          }
+        });
       }
-      const sobj = JSON.parse(result);
-      return callback(sobj);
-    }
-  });
+
+    },
+    (err)=>{
+      console.log('ERR: ',err);
+    });
 };
 
-populateCache();
-query.addListener(notify);
+init = ()=>{
+  smartstore.registerSoup(false,
+    SOUP_NAME, 
+    [ 
+      {path:externalID, type:"string"}
+    ],
+    () => {
+      populateCache();
+      query.addListener(notify);
+    }
+  );
+};
+
+clearAll = ()=>{
+  smartstore.clearSoup(false,SOUP_NAME);
+};
+
+set = (sobj, callback)=>{
+  if(sobj && sobj.attributes && sobj.attributes.shortId){
+    sobj[externalID] = sobj.attributes.shortId;
+    smartstore.upsertSoupEntriesWithExternalId(false, 
+      SOUP_NAME, [ sobj ],externalID,
+      (sobjs) => {
+        console.log('DONE UPSERTING!');
+        if(callback){
+          callback(sobjs);
+        }
+      },
+      (err) => {
+        console.log('ERROR!');
+        if(callback){
+          callback();
+        }
+      }
+    );
+  }
+};
+
+
+init();
 
 module.exports = {
-  getItem:getItem,
-  setItem:setItem,
-  set:set
+  set:set,
+  clearAll:clearAll
 };
