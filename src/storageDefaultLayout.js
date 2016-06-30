@@ -24,16 +24,14 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
  
-import {smartstore} from 'react.force';
+import { AsyncStorage } from 'react-native';
 
 import getDefaultLayout from './getDefaultLayout';
+
 
 import cacheDefault from './cacheDefault';
 
 const PREFIX = 'defaultLayout_';
-
-const SOUP_NAME = PREFIX+'Soup';
-
 
 const notify = (type, defaultLayout) => {
   if(type, defaultLayout){
@@ -42,46 +40,21 @@ const notify = (type, defaultLayout) => {
 };
 
 const populateCache = ()=>{
-  const querySpec = smartstore.buildAllQuerySpec('id', "ascending", 100);
-
-  smartstore.querySoup(
-    false,
-    SOUP_NAME,
-    querySpec,
-    (cursor)=>{
-      const items = cursor.currentPageOrderedEntries;
-      if(items && items.length){
-        items.forEach((defaultLayout)=>{
-          if(defaultLayout.id){
-            const type = defaultLayout.id.substring(PREFIX.length);
-            if(type){
-              cacheDefault.set(type,defaultLayout);
-            }
+  AsyncStorage.getAllKeys((err, keys) => {
+    AsyncStorage.multiGet(keys, (err, stores) => {
+      stores.forEach((result, i, store) => {
+        const key = store[i][0];
+        if(key && key.indexOf(PREFIX)===0){
+          const defaultLayout = JSON.parse(store[i][1]);
+          const type = key.substring(PREFIX.length);
+          if(defaultLayout && type && type.length){
+            cacheDefault.set(type,defaultLayout);
           }
-        });
-      }
-
-    },
-    (err)=>{
-      console.log('ERR: ',err);
+        }
+      });
     });
-};
 
-clearAll = ()=>{
-  smartstore.clearSoup(false,SOUP_NAME);
-};
-
-init = ()=>{
-  smartstore.registerSoup(false,
-    SOUP_NAME, 
-    [ 
-      {path:"id", type:"string"}
-    ],
-    () => {
-      populateCache();
-      getDefaultLayout.addListener(notify);
-    }
-  );
+  });
 };
 
 const set = (type,defaultLayout)=>{
@@ -94,30 +67,29 @@ const getLayoutKey = (type)=>{
   return PREFIX+type;
 };
 
-const setItem = (type,defaultLayout,callback)=>{
+const setItem = (type,compactLayout,callback)=>{
   const key = getLayoutKey(type);
-  defaultLayout.id = key;
-  smartstore.upsertSoupEntriesWithExternalId(false, 
-    SOUP_NAME, [ defaultLayout ],'id',
-    (defaultLayouts) => {
-      console.log('DONE UPSERTING!');
-      if(callback){
-        callback(defaultLayouts);
-      }
-    },
-    (err) => {
-      console.log('ERROR!');
-      if(callback){
-        callback();
-      }
-    }
-  );
+  return AsyncStorage.setItem(key,JSON.stringify(compactLayout),callback);
 };
 
+const getItem = (type,callback)=>{
+  const key = getLayoutKey(type);
+  return AsyncStorage.getItem(key,(err, result)=>{
+    if(callback){
+      if(err || !result){
+        return callback();
+      }
+      const defaultLayout = JSON.parse(result);
+      return callback(defaultLayout);
+    }
+  });
+};
 
-init();
+populateCache();
+getDefaultLayout.addListener(notify);
 
 module.exports = {
-  set:set,
-  clearAll:clearAll
+  getItem:getItem,
+  setItem:setItem,
+  set:set
 };

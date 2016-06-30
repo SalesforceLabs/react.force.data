@@ -24,17 +24,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
  
-import {smartstore} from 'react.force';
+import { AsyncStorage } from 'react-native';
 
 import query from './query';
 
 import cache from './cache';
 
-const PREFIX = 'sobj_';
-
-const SOUP_NAME = PREFIX+'Soup';
-
-const externalID = '__shortId';
 
 const notify = (ids,sobjs) => {
   sobjs.forEach((sobj)=>{
@@ -43,70 +38,52 @@ const notify = (ids,sobjs) => {
 };
 
 const populateCache = ()=>{
-  const querySpec = smartstore.buildAllQuerySpec('__shortId', "ascending", 100);
-
-  smartstore.querySoup(
-    false,
-    SOUP_NAME,
-    querySpec,
-    (cursor)=>{
-      const items = cursor.currentPageOrderedEntries;
-      if(items && items.length){
-        items.forEach((sobj)=>{
-          if(sobj.attributes && sobj.attributes.shortId){
-            cache.set(sobj);
-          }
-        });
-      }
-
-    },
-    (err)=>{
-      console.log('ERR: ',err);
+  AsyncStorage.getAllKeys((err, keys) => {
+    AsyncStorage.multiGet(keys, (err, stores) => {
+      stores.forEach((result, i, store) => {
+        const sobj = JSON.parse(store[i][1]);
+        cache.set(sobj);
+      });
     });
+
+  });
 };
 
-init = ()=>{
-  smartstore.registerSoup(false,
-    SOUP_NAME, 
-    [ 
-      {path:externalID, type:"string"}
-    ],
-    () => {
-      populateCache();
-      query.addListener(notify);
-    }
-  );
-};
-
-clearAll = ()=>{
-  smartstore.clearSoup(false,SOUP_NAME);
-};
-
-set = (sobj, callback)=>{
+const set = (sobj)=>{
   if(sobj && sobj.attributes && sobj.attributes.shortId){
-    sobj[externalID] = sobj.attributes.shortId;
-    smartstore.upsertSoupEntriesWithExternalId(false, 
-      SOUP_NAME, [ sobj ],externalID,
-      (sobjs) => {
-        console.log('DONE UPSERTING!');
-        if(callback){
-          callback(sobjs);
-        }
-      },
-      (err) => {
-        console.log('ERROR!');
-        if(callback){
-          callback();
-        }
-      }
-    );
+    setItem(sobj.attributes.shortId,sobj);
   }
 };
 
+const getShotId = (id)=>{
+  if(id && id.length>=15){
+    return id.substring(0,15);
+  }
+};
 
-init();
+const setItem = (id,sobj,callback)=>{
+  const shortId = getShotId(id);
+  return AsyncStorage.setItem(shortId,JSON.stringify(sobj),callback);
+};
+
+const getItem = (id,callback)=>{
+  const shortId = getShotId(id);
+  return AsyncStorage.getItem(shortId,(err, result)=>{
+    if(callback){
+      if(err || !result){
+        return callback();
+      }
+      const sobj = JSON.parse(result);
+      return callback(sobj);
+    }
+  });
+};
+
+populateCache();
+query.addListener(notify);
 
 module.exports = {
-  set:set,
-  clearAll:clearAll
+  getItem:getItem,
+  setItem:setItem,
+  set:set
 };

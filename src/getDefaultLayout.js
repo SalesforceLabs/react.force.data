@@ -23,7 +23,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 import {forceClient} from 'react.force';
 
 import pull from 'lodash.pull';
@@ -51,7 +51,7 @@ module.exports = (opts) => {
         return;
       }
       requested.push(opts.type);
-      forceClient.defaultLayout(opts.type, 
+      forceClient.defaultLayout(opts.type,
         (response) => {
           opts.defaultLayout = response;
           pull(requested,opts.type);
