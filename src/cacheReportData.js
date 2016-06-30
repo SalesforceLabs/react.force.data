@@ -1,8 +1,8 @@
 // import reportQuery
 import query from './reportQuery';
 
-const notify = (id,report) => {
-  set(report);
+const notify = (id,sobj) => {
+  set(sobj);
 };
 
 query.addListener(notify);
@@ -13,9 +13,9 @@ const get = (id)=>{
   return cache[id];
 };
 
-const set = (report)=>{
-  let reportId = report.attributes.reportId;
-  cache[reportId] = report;
+const set = (sobj)=>{
+  let reportId = sobj.attributes.reportId;
+  cache[reportId] = sobj;
 };
 
 module.exports = {

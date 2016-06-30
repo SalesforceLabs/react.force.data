@@ -24,15 +24,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
  
-import {smartstore} from 'react.force';
+import { AsyncStorage } from 'react-native';
 
 import getCompactLayout from './getCompactLayout';
 
+
 import cacheCompact from './cacheCompact';
-
-const PREFIX = 'compactLayout_';
-
-const SOUP_NAME = PREFIX+'Soup';
 
 const notify = (type, compactLayout) => {
   if(type, compactLayout){
@@ -41,46 +38,20 @@ const notify = (type, compactLayout) => {
 };
 
 const populateCache = ()=>{
-  const querySpec = smartstore.buildAllQuerySpec('id', "ascending", 100);
-
-  smartstore.querySoup(
-    false,
-    SOUP_NAME,
-    querySpec,
-    (cursor)=>{
-      const items = cursor.currentPageOrderedEntries;
-      if(items && items.length){
-        items.forEach((compactLayout)=>{
-          if(compactLayout.id){
-            const type = compactLayout.id.substring(PREFIX.length);
-            if(type){
-              cacheCompact.set(type,compactLayout);
-            }
+  AsyncStorage.getAllKeys((err, keys) => {
+    AsyncStorage.multiGet(keys, (err, stores) => {
+      stores.forEach((result, i, store) => {
+        const key = store[i][0];
+        if(key && key.indexOf('compactLayout_')===0){
+          const compact = JSON.parse(store[i][1]);
+          if(compact && compact.objectType){
+            cacheCompact.set(compact.objectType,compact);
           }
-        });
-      }
-
-    },
-    (err)=>{
-      console.log('ERR: ',err);
+        }
+      });
     });
-};
 
-init = ()=>{
-  smartstore.registerSoup(false,
-    SOUP_NAME, 
-    [ 
-      {path:"id", type:"string"}
-    ],
-    () => {
-      populateCache();
-      getCompactLayout.addListener(notify);
-    }
-  );
-};
-
-clearAll = ()=>{
-  smartstore.clearSoup(false,SOUP_NAME);
+  });
 };
 
 const set = (type,compactLayout)=>{
@@ -90,33 +61,32 @@ const set = (type,compactLayout)=>{
 };
 
 const getLayoutKey = (type)=>{
-  return PREFIX+type;
+  return 'compactLayout_'+type;
 };
 
 const setItem = (type,compactLayout,callback)=>{
   const key = getLayoutKey(type);
-  compactLayout.id = key;
-  smartstore.upsertSoupEntriesWithExternalId(false, 
-    SOUP_NAME, [ compactLayout ],'id',
-    (compactLayouts) => {
-      console.log('DONE UPSERTING!');
-      if(callback){
-        callback(compactLayouts);
-      }
-    },
-    (err) => {
-      console.log('ERROR!');
-      if(callback){
-        callback();
-      }
-    }
-  );
+  return AsyncStorage.setItem(key,JSON.stringify(compactLayout),callback);
 };
 
+const getItem = (type,callback)=>{
+  const key = getLayoutKey(type);
+  return AsyncStorage.getItem(key,(err, result)=>{
+    if(callback){
+      if(err || !result){
+        return callback();
+      }
+      const compactLayout = JSON.parse(result);
+      return callback(compactLayout);
+    }
+  });
+};
 
-init();
+populateCache();
+getCompactLayout.addListener(notify);
 
 module.exports = {
-  set:set,
-  clearAll:clearAll
+  getItem:getItem,
+  setItem:setItem,
+  set:set
 };

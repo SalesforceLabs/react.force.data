@@ -25,7 +25,7 @@ module.exports = (opts) => {
       }
 
       queryCount++;
-      forceClient.reportData(opts.ids[0],
+      forceClient.reportData(opts.id,
         (response)=>{
           broadcast(response);
           resolve(opts);

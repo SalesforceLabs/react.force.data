@@ -43,7 +43,8 @@ module.exports = (opts) => {
         resolve(opts);
         return;
       }
-/*
+
+
       storage.getItem(id, (item)=>{
         if(item){
           opts.cachedSobj = item;
@@ -53,7 +54,6 @@ module.exports = (opts) => {
         }
         return;
       });
-*/
     }
   );
 };

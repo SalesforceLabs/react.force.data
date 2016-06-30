@@ -1,10 +1,10 @@
-import reportQueue from './reportQueue';
+import reportQuery from './reportQuery';
 
 module.exports = (opts) => {
   return new Promise (
     (resolve, reject) => {
       if(!opts.cachedReportData || opts.nocache){
-        reportQueue.add(opts.id);
+        reportQuery({id:opts.id})
       } else {
         console.log('skipping: already cached');
       }
