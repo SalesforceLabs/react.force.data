@@ -12,13 +12,11 @@ const add = (id) => {
   if(reportQueue.indexOf(id) < 0){
     reportQueue.push(id);
   }
-  setTimeout(()=>{
-    if(reportQueue && reportQueue.length !== 0){
-      console.log('TRIGGER QUERY !!!');
-      const ids = get()
-      return reportQuery({ids:ids});
-    }
-  },300);
+  if(reportQueue && reportQueue.length !== 0){
+    console.log('TRIGGER QUERY !!!');
+    const ids = get();
+    return reportQuery({ids:ids});
+  }
 };
 
 module.exports = {

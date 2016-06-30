@@ -6,7 +6,6 @@ module.exports = (opts) => {
       const id = opts.id;
       const item = cacheReportData.get(id);
       opts.cachedReportData = item;
-      debugger;
       resolve(opts);
     })
 }
