@@ -1,8 +1,8 @@
 import query from './chatterQuery';
 
-const notify = (ids,sobjs) => {
-  sobjs.forEach((sobj)=>{
-    set(sobj);
+const notify = (ids,chatterObjs) => {
+  chatterObjs.forEach((chatterObj)=>{
+    set(chatterObj);
   });
 };
 
@@ -14,8 +14,8 @@ const get = (id)=>{
   return cache[id];
 };
 
-const set = (sobj)=>{
-  cache[sobj.Id] = sobj;
+const set = (chatterObj)=>{
+  cache[chatterObj.id] = chatterObj;
 };
 
 module.exports = {

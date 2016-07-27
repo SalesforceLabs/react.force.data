@@ -49,6 +49,9 @@ import btLogoQuery from './btLogoQuery';
 import getByReportId from './getByReportId';
 import reportQuery from './reportQuery';
 
+import getDashboardById from './getDashboardById';
+import getDashboardData from './dashboard/getDashboardData';
+
 module.exports = {
   getByTypeAndId:getByTypeAndId,
   getDefaultLayout:getDefaultLayout,
@@ -63,5 +66,7 @@ module.exports = {
   getBtLogoByCompanyName: getBtLogoByCompanyName,
   btLogoQuery: btLogoQuery,
   reportQuery: reportQuery,
-  getByReportId: getByReportId
+  getByReportId: getByReportId,
+  getDashboardById: getDashboardById,
+  getDashboardData: getDashboardData
 };
