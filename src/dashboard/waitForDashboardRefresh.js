@@ -2,8 +2,10 @@ import {forceClient} from 'react.force';
 import Interval from '../utils/interval';
 import getDashboardData from './getDashboardData';
 
+let _dbStatusLoop;
+
 module.exports = (opts)=>{
-	opts.dbStatusLoop = new Interval(function(time){
+	_dbStatusLoop = new Interval(function(time){
 		console.log('dbstatuscheck@'+time);
 		forceClient.dashboardStatus(opts.id,
 			(response)=>{
@@ -11,8 +13,7 @@ module.exports = (opts)=>{
 					return component.refreshStatus == 'IDLE';
 				})
 				if(isDbRefreshed){
-					opts.dbStatusLoop.stop();
-					opts.dbRefreshLoop.stop();
+					_dbStatusLoop.stop();
 					getDashboardData(opts);
 				}
 			},
@@ -22,5 +23,9 @@ module.exports = (opts)=>{
 		)
 	},10000);
 
-	opts.dbStatusLoop.start();
+	_dbStatusLoop.start();
+}
+
+module.exports.stop = ()=>{
+	_dbStatusLoop && _dbStatusLoop.stop();
 }

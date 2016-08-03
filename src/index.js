@@ -51,6 +51,8 @@ import reportQuery from './reportQuery';
 
 import getDashboardById from './getDashboardById';
 import getDashboardData from './dashboard/getDashboardData';
+import waitForDashboardRefresh from './dashboard/waitForDashboardRefresh';
+import refreshDashboard from './dashboard/refreshDashboard';
 
 module.exports = {
   getByTypeAndId:getByTypeAndId,
@@ -68,5 +70,7 @@ module.exports = {
   reportQuery: reportQuery,
   getByReportId: getByReportId,
   getDashboardById: getDashboardById,
-  getDashboardData: getDashboardData
+  getDashboardData: getDashboardData,
+  waitForDashboardRefresh: waitForDashboardRefresh,
+  refreshDashboard: refreshDashboard
 };

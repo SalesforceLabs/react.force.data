@@ -2,6 +2,7 @@ import {forceClient} from 'react.force';
 import Interval from '../utils/interval';
 import waitForDashboardRefresh from './waitForDashboardRefresh';
 
+let _dbRefreshLoop;
 
 module.exports = (opts) => {
 	return new Promise(
@@ -10,7 +11,7 @@ module.exports = (opts) => {
 				resolve(opts);
 				return;
 			}
-			opts.dbRefreshLoop = new Interval(function(time){
+			_dbRefreshLoop = new Interval(function(time){
 				console.log('dbrefreshed@'+time);
 				forceClient.dashboardRefresh(opts.id,
 					(response)=>{
@@ -29,10 +30,11 @@ module.exports = (opts) => {
 			}
 			,opts.refreshInterval);
 
-			// ,1800000);
-
-			opts.dbRefreshLoop.start();
-
+			_dbRefreshLoop.start();
 		}
 	);
+}
+
+module.exports.stop = ()=>{
+	_dbRefreshLoop && _dbRefreshLoop.stop();
 }
