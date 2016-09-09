@@ -14,7 +14,6 @@ const add = (id) => {
   }
   setTimeout(()=>{
     if(btLogoQueue && btLogoQueue.length !== 0){
-      console.log('TRIGGER QUERY !!!');
       const ids = get();
       return btLogoQuery({ids:ids});
     }

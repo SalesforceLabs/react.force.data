@@ -21,7 +21,7 @@ module.exports = (opts)=>{
 				reject('Error: there was an error in the dashboard refresh');
 			}
 		)
-	},10000);
+	},30000);
 
 	_dbStatusLoop.start();
 }

@@ -23,18 +23,17 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
- 
-import getDefaultLayout from './getDefaultLayout';
-import getDefaultLayoutFieldNames from './getDefaultLayoutFieldNames';
+
+// import getDefaultLayout from './getDefaultLayout';
+// import getDefaultLayoutFieldNames from './getDefaultLayoutFieldNames';
 import getCompactLayout from './getCompactLayout';
 import getCompactLayoutFieldNames from './getCompactLayoutFieldNames';
-import query from './query';
-import getCompactLayoutTitle from './getCompactLayoutTitle';
-import doCacheSobj from './doCacheSobj';
-import getCachedSobj from './getCachedSobj';
-import getCachedDefaultLayout from './getCachedDefaultLayout';
+// import getCompactLayoutTitle from './getCompactLayoutTitle';
+// import doCacheSobj from './doCacheSobj';
+// import getCachedSobj from './getCachedSobj';
+// import getCachedDefaultLayout from './getCachedDefaultLayout';
 import getCachedCompactLayout from './getCachedCompactLayout';
-import doCacheDefaultLayout from './doCacheDefaultLayout';
+// import doCacheDefaultLayout from './doCacheDefaultLayout';
 import doCacheCompactLayout from './doCacheCompactLayout';
 
 
@@ -44,8 +43,8 @@ module.exports = (opts) => {
     .then(getCompactLayout)
     .then(doCacheCompactLayout)
     .then(getCompactLayoutFieldNames)
-    .then(getCachedDefaultLayout)
-    .then(getDefaultLayout)
-    .then(doCacheDefaultLayout)
-    .then(getDefaultLayoutFieldNames);
+    // .then(getCachedDefaultLayout)
+    // .then(getDefaultLayout)
+    // .then(doCacheDefaultLayout)
+    // .then(getDefaultLayoutFieldNames);
 };
