@@ -24,7 +24,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
  
-import { AsyncStorage } from 'react-native';
 
 import cacheCompact from './cacheCompact';
 
