@@ -11,6 +11,6 @@
 
   ```
 
-  npm install react.force.data --save
+  npm install https://github.com/ForceDotComLabs/react.force.data.git --save
 
   ```
