@@ -18,8 +18,7 @@
   },
   "homepage": "https://github.com/ForceDotComLabs/react.force.data#readme",
   "peerDependencies": {
-    "react-native": ">=0.20.0",
-    "react.force": "https://github.com/ForceDotComLabs/react.force.git"
+    "react-native": ">=0.20.0"
   },
   "dependencies": {
     "lodash.findindex": "^4.4.0",
