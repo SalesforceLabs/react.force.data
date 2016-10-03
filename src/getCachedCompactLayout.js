@@ -23,7 +23,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 
 import cacheCompact from './cacheCompact';
 
@@ -32,8 +32,10 @@ import cacheCompact from './cacheCompact';
 module.exports = (opts) => {
   return new Promise(
     (resolve, reject) => {
-      const item = cacheCompact.get(opts.type)
-      opts.cachedCompactLayout = item;
+      if(!opts.noMetaCache){
+        const item = cacheCompact.get(opts.type)
+        opts.cachedCompactLayout = item;
+      }
       resolve(opts);
     }
   );

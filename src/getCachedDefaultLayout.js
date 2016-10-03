@@ -31,8 +31,10 @@
 module.exports = (opts) => {
   return new Promise(
     (resolve, reject) => {
-      const item = cacheDefault.get(opts.type)
-      opts.cachedDefaultLayout = item;
+      if(!opts.noMetaCache){
+        const item = cacheDefault.get(opts.type)
+        opts.cachedDefaultLayout = item;
+      }
       resolve(opts);
     }
   );

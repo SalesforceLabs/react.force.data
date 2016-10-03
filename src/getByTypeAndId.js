@@ -36,8 +36,8 @@ import getMetaByType from './getMetaByType';
 
 import queue from './queue';
 
-module.exports = (type, id, noCache) => {
-  return getCachedSobj({type:type,id:id, noCache:!!noCache})
+module.exports = (type, id, noCache, noMetaCache) => {
+  return getCachedSobj({type:type,id:id, noCache:!!noCache, noMetaCache:!!noMetaCache})
     .then(getCachedCompactLayout)
     .then(getCompactLayout)
     .then(getCachedDefaultLayout)
