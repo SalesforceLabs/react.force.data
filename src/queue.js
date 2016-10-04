@@ -23,7 +23,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 let Queue = {};
 
 import keys from 'lodash.keys';
@@ -57,7 +57,7 @@ const add = (type, id, doRefs) => {
         batchRunByType(type,ids,doRefs);
       }
       timeouts[type] = false;
-    },300);
+    },150);
   }
 };
 

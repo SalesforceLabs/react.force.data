@@ -46,8 +46,11 @@ module.exports = (opts) => {
         resolve(opts);
         return;
       }
+      if(opts.type === 'User'){
+        resolve(opts);
+        return;
+      }
       if(opts.type === 'Group'){
-        console.log('GROUP: OPTS: ',opts);
         resolve(opts);
         return;
       }
@@ -56,7 +59,7 @@ module.exports = (opts) => {
         return;
       }
       requested.push(opts.type);
-      forceClient.compactLayout(opts.type, 
+      forceClient.compactLayout(opts.type,
         (response) => {
           opts.compactLayout = response;
           pull(requested,opts.type);

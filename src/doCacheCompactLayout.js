@@ -41,7 +41,7 @@ module.exports = (opts) => {
       }
       else{
         console.log('Wrong compact layout');
-        reject('Wrong compact layout');
+        resolve(opts);
       }
     }
   );
