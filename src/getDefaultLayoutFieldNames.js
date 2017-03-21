@@ -41,12 +41,13 @@ module.exports = (opts) => {
                 if(layoutItem && layoutItem.layoutComponents && layoutItem.layoutComponents.length){
                   layoutItem.layoutComponents.forEach((layoutComponent)=>{
                     if(layoutComponent.value && trim(layoutComponent.value,'_-\n\t').length){
-                      fields.push(layoutComponent.value);
-
-                      if(layoutComponent.details && 
-                          layoutComponent.details.type && 
-                          layoutComponent.details.type === 'reference' && 
-                          layoutComponent.details.referenceTo && 
+                      if(layoutComponent.type === 'Field'){
+                        fields.push(layoutComponent.value);
+                      }
+                      if(layoutComponent.details &&
+                          layoutComponent.details.type &&
+                          layoutComponent.details.type === 'reference' &&
+                          layoutComponent.details.referenceTo &&
                           layoutComponent.details.referenceTo.length){
                         const ref = layoutComponent.details.referenceTo[layoutComponent.details.referenceTo.length-1];
                         refs[layoutComponent.details.name] = ref;
