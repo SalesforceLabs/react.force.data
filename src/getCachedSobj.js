@@ -43,6 +43,8 @@ module.exports = (opts) => {
         resolve(opts);
         return;
       }
+ 
+      resolve(opts);
 
 /*
       storage.getItem(id, (item)=>{
